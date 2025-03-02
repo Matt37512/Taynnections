@@ -1,5 +1,6 @@
 ##REDIRECT
-RedirectMatch 301 /blog(.*) /$1
+RewriteEngine On
+RedirectMatch 301 /connections.html/?(.*) /$1
 
 ##HOME PAGE DEF
 DirectoryIndex homePage.html
