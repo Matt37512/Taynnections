@@ -1,7 +1,5 @@
 ##REDIRECT
-RewriteEngine On
-RewriteCond %{SCRIPT_URL} ^/connections.html/?(.*)
-RewriteRule ^.*$ https://taynnections.netlify.app/$1 [R=301,NC,L]
+RedirectMatch 301 /blog(.*) /$1
 
 ##HOME PAGE DEF
 DirectoryIndex homePage.html
