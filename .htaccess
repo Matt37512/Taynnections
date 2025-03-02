@@ -1,1 +1,7 @@
+##REDIRECT
+RewriteEngine On
+RewriteCond %{SCRIPT_URL} ^/connections.html/?(.*)
+RewriteRule ^.*$ https://taynnections.netlify.app/$1
 
+##HOME PAGE DEF
+DirectoryIndex homePage.html
