@@ -1,0 +1,58 @@
+:root {
+    --red: #A6200B;
+    --purple: #8c0a8c;
+    --orange: #d08c10;
+    --green: #0e960e;
+    --black: #222;
+    --blue: #1d60c3;;
+}
+
+a {
+    color: var(--blue);
+}
+body {
+    background-color: #444;
+    color: #ccc;
+}
+input, button {
+    color: #333;
+}
+input:not([id^=hintButton]):not(.unclick):hover {
+    background-color: #525252;
+    border: 3px #888;
+    color: #999;
+}
+
+.cell {
+    background-color: #aaa;
+}
+.unclick {
+    background-color: #555;
+}
+.active {
+    background-color: #666;
+}
+.footer {
+    background-color: #666;
+}
+.cell:hover:not(.active) {
+    background-color: #777;
+}
+.active:hover {
+    background-color: #555;
+}
+#banner {
+    background-color: #333;
+    border: 2px solid #333;
+}
+#footerText {
+    color: #aaa
+}
+#hintButton:hover:not(.unclick), #hintOn:hover {
+    background-color: #525252;
+    border: 3px #888;
+    color: #999;
+}
+.answer {
+    color: var(--black);
+}

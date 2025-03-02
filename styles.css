@@ -1,0 +1,325 @@
+:root {
+    --red: #ff3838;
+    --purple: #c508c5;
+    --orange: orange;
+    --green: #0cbd0c;
+    --black: #222;
+    --blue: #2779f4;
+}
+
+@keyframes wrongGuess {
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(-5px);
+    }
+    0%, 100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes rightGuess {
+    10% {
+        transform: translateY(16px);
+    }
+    30% {
+        transform: translateY(8px);
+    }
+    50% {
+        transform: translateY(4px);
+    }
+    70% {
+        transform: translateY(2px);
+    }
+    90% {
+        transform: translateY(1px);
+    }
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transform: initial;
+    }
+}
+
+body {
+    background-color: #eee;
+    transition: 1s ease-in;
+}
+input, button {
+    background-color: #999;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+}
+input:not([id^=hintButton]):not(.unclick):hover {
+    background-color: whitesmoke;
+    border: 3px #888;
+    color: #999;
+}
+h1 {
+    font-family: "Lucida Console", "Times New Roman", Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+h2 {
+    font-family: Cursive, Helvetica, sans-serif;
+    margin-top: 0;
+}
+.cell {
+    flex: 1 0 21%;
+    background-color: #bbb;
+    height: 75px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    cursor: pointer;
+}
+.unclick {
+    background-color: #ddd;
+    color: #666;
+    cursor: not-allowed;
+    transition: background-color .3s ease-in-out;
+}
+.active {
+    background-color: #888;
+}
+.answer {
+    font-size: 7px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: inherit;
+}
+.footer {
+    background-color: #bbb;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blue {
+    color: var(--blue);
+}
+.green {
+    color: var(--green);
+}
+.orange {
+    color: var(--orange);
+}
+.red {
+    color: var(--red);
+}
+.purple {
+    color: var(--purple);
+}
+
+.cell:hover:not(.active) {
+    background-color: #ddd;
+    transition: .4s ease-out;
+    -moz-transition: .4s ease-out;
+    -webkit-transition: .4s ease-out;
+}
+.active:hover {
+    background-color: #777;
+    transition: .4s ease-out;
+    -moz-transition: .4s ease-out;
+    -webkit-transition: .4s ease-out;
+}
+
+#notif {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+#banner {
+    background-color: #222;
+	border: 2px solid #222;
+    color: whitesmoke;
+    border-radius: 3px;
+    padding: 2px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#buttons, #grids {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#hint {
+    position: absolute;
+    transform: translate(2px, -40px);
+}
+#hintOn {
+    display: none;
+}
+#hints {
+    visibility: hidden;
+}
+#grid {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+}
+#darkMode {
+    background-color: var(--black);
+    height: 30px;
+    width: 60px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 5px;
+    border-radius: 10px;
+    z-index: 2;
+}
+#toggleDarkMode {
+    background-color: #eee;
+    background-image: url('https://static-00.iconduck.com/assets.00/moon-icon-459x512-1b67lqtv.png');
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+    z-index: 3;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -webkit-transition: .5s ease-out;
+    &:hover {
+        background-color: #888;
+    }
+}
+.darkModeOn {
+    transform: translateX(-30px);
+}
+#game {
+    line-height: 22px;
+}
+#footerText {
+    color: #555;
+}
+#easy, #medium, #hard, #very_hard {
+    display: none;
+}
+#easySpan, #hintButton1 {
+    background-color: var(--green);
+}
+#mediumSpan, #hintButton2 {
+    background-color: var(--orange);
+}
+#hardSpan, #hintButton3 {
+    background-color: var(--red);
+}
+#very_hardSpan, #hintButton4 {
+    background-color: var(--purple);
+}
+
+#hintButton:hover:not(.unclick), #hintOn:hover {
+    background-color: whitesmoke;
+    border: 3px #888;
+    color: #999;
+}
+#hintButton1:hover {
+    background-color: color-mix(in srgb, var(--green) 70%, #444 30%);
+    transition: background-color .3s ease-in-out;
+}
+#hintButton2:hover {
+    background-color: color-mix(in srgb, var(--orange) 70%, #444 30%);
+    transition: background-color .3s ease-in-out;
+}
+#hintButton3:hover {
+    background-color: color-mix(in srgb, var(--red) 70%, #444 30%);
+    transition: background-color .3s ease-in-out;
+}
+#hintButton4:hover {
+    background-color: color-mix(in srgb, var(--purple) 70%, #444 30%);
+    transition: background-color .3s ease-in-out;
+}
+
+@media screen and (min-width: 420px) {
+    input[id^=hintButton] {
+        display: none;
+        padding: 7px;
+    }
+    button span {
+        display: none;
+    }
+
+    button:not(#hintOn)::after {
+        content: 'Hints';
+    }
+
+    .answer {
+        font-size: 10px;
+    }
+    .cell {
+		margin: 3px;	
+    }
+
+    #noHints {
+        display: none;
+    }
+    #hints {
+        visibility: visible;
+    }
+    #hintOn {
+        visibility: hidden;
+    }
+    #hintContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #hintContainer > input {
+        flex: 0 1 30%;
+    }
+}
+
+@media screen and (min-width: 550px) {
+    #hintContainer > input {
+        flex: 1 0 40%;
+    }
+
+    #hintOn {
+        visibility: visible;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .answer {
+        font-size: 13px;
+    }
+	.cell {
+		margin: 4px;
+	}
+}
+
+@media screen and (min-width: 750px) {
+    .answer {
+        font-size: 16px;
+    }
+	.cell {
+	    margin: 5px;
+    }
+
+    #hintOn {
+        transform: translate(calc(100vw - 100% - 23px), -40px);
+    }
+
+    #hintContainer > input {
+        flex: initial;
+        padding: 8px 16px;
+    }
+}
