@@ -1,28 +1,786 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="refresh" content="0; url=/taynnections.html" />
-	<title>Bienvenue sur mytestsite.ch</title>
-	<meta name="description" content="Ce site est actuellement en construction.">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="og:url" content="http://mytestsite.ch/index.html">
-	<meta name="og:locale" content="fr">
-	<meta name="og:type" content="website">
-	<meta name="og:title" content="Bienvenue sur mytestsite.ch">
-	<meta name="og:description" content="Ce site est actuellement en construction.">
-	<meta name="og:updated_time" content="1737885773">
-	<link rel="stylesheet" href="https://assets.storage.infomaniak.com/fonts/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
-	<style>
-	  html,body{height:100%;padding:0;margin:0}.page{position:relative;display:table;table-layout:fixed;width:100%;height:100%;line-height:normal;text-align:center;font-family:Open Sans, sans-serif;font-size:1.1em;color:#fff;background-color:#f0f0f0;background-size:cover;background-position:50% 50%;background-repeat:no-repeat;background-attachment:fixed}h1,h2,h3,h4,h5{line-height:1.3;font-weight:normal}.bg-position-top{background-position:50% 0}.bg-position-middle{background-position:50% 50%}.bg-position-bottom{background-position:50% 100%}.page:before{content:"";position:absolute;top:0;left:0;bottom:0;right:0;filter:alpha(opacity=40);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";opacity:0.4}img{max-width:100%;width:auto\9;height:auto}a,a:link{color:inherit;filter:alpha(opacity=85);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";opacity:0.85}a:hover,a:focus,a:active{filter:alpha(opacity=100);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";opacity:1;-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out}ul,ol{display:inline-block;text-align:left;max-width:50%}.container{position:relative;display:table-cell;width:100%;vertical-align:middle;padding:1em 2em;z-index:1}.content{max-width:900px;margin:0 auto}.social-links:empty{outline:1px solid yellow}.social-links{padding:1em 0;vertical-align:middle}.social-links a{padding:0 0.3em;line-height:normal}.hosting-info{position:absolute;display:block;bottom:0;left:0;right:0;padding:1em;font-size:0.8em}.hosting-info p{margin:0;padding:0;font-size:12px}.overlay-dark{background-color:#333}.overlay-dark:before{background-color:#333}.overlay-bright{background-color:white}.overlay-bright:before{background-color:white;filter:alpha(opacity=70);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";opacity:0.7}@media screen{.page[class]{background-image:url("https://assets.storage.infomaniak.website/images/background/et/3-medium.jpg")}}body.debug:after{content:"default";position:fixed;left:0;bottom:0;background-color:white;color:black;padding:0.5em;font-size:10px;text-transform:uppercase}@media screen and (max-width: 640px){body.debug:after{content:"small"}h1{font-size:2em}ul,ol{max-width:none}.page{min-width:300px}.page .container{padding:3em}.page,.page[class]{background-image:url("https://assets.storage.infomaniak.website/images/background/et/3-small.jpg")}}@media screen and (min-width: 641px) and (max-width: 1199px),(min-height:500px) and (max-height: 1199px){body.debug:after{content:"medium"}.page,.page[class]{background-image:url("https://assets.storage.infomaniak.website/images/background/et/3-medium.jpg")}}@media screen and (min-width: 1200px){body.debug:after{content:"large"}.page,.page[class]{background-image:url("https://assets.storage.infomaniak.website/images/background/et/3-large.jpg")}}.page .fallback-bg{display:none}.ie8 .page .fallback-bg{display:block;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;max-width:inherit;z-index:0}
-	</style>
-  </head>
-  <body>
-	<div id="page" class="page  overlay-dark bg-position-middle">
-	  <div class="container">
-		<a href="/connections.html">Please click here if not redirected immediately</a>
-	  </div>
-	</div>
-  </body>
+<html lang="en">
+    <head>
+        <title>Taynnections</title>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="A Taylor Swift Connections game">
+        <meta name="keywords" content="Taylor, Taylor Swift, Swift, Connections, game">
+        <meta name="author" content="Matteo B.">
+        <meta name="viewport" content="width=device-width, initial-scale=0.75">
+        <link rel="icon" type="image/x-icon" href="https://media.gettyimages.com/id/2166943469/de/foto/london-england-taylor-swift-performs-onstage-during-taylor-swift-the-eras-tour-at-wembley.jpg?s=612x612&w=0&k=20&c=dzC-OF3CXpgRpz5-WafyRcJ4GUZAb9IOoVcEPf2xGrc=">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+            if(document.cookie && document.cookie.split('=')[1] !== 'false') {
+				$('head').append('<link rel="stylesheet" href="darkMode.css">');
+				$('#toggleDarkMode').toggleClass('darkModeOn').toggleClass('darkModeOff');
+            }
+            /***********************************
+            * Init script
+            * 
+            * To add a grid:
+            * 
+            * 1. change  var catNum to new number of grids
+            *    (generally catNum += 1). (around l54)
+            * 
+            * 2. add var a[grid number as number] (object)
+            *    with difficulty, additionnal information,
+            *    the four category names params, and hints
+            *    for each category. (around l201)
+            * 
+            * 3. add var a[Grid number as text] (array of
+            *    str) with the answers in order: easy,
+            *    medium, hard, very hard (4 per category).
+            *    (around l214)
+            * 
+            * 4. Add case [catNum] in switch code block,
+            *    set var categories to [grid number as
+            *    number] and var answersText to
+            *    a[Grid number as text]. Do not forget
+            *    the break statement. (around l260)
+            * 
+            * 5. Add a[grid number as number] in
+            *    answerSpell var. (around l263)
+            * 
+            * 6. Done! Enjoy Taynnections :)
+            * 
+            * Note: approximate lines are marked with '//\\'
+            ************************************/
+
+                console.log('%cHave fun playing Taynnections!', 'color: orange; font-size: 45px; font-weight: bold');
+                console.log('With best regards,');
+                console.log('%cMatteo B.', 'color: blue; font-size: 20px; font-weight: bold'); //For whoever looks into the console :)
+
+                //Acutal code begin
+                var catNum = 11; //\\
+                //The number of categories ^
+                var URLParams = new URLSearchParams(window.location.search); //To extract the n param later on
+                var randInt = Math.floor(Math.random() * catNum);
+                if(!URLParams.has('n') || Number.isNaN(Number.parseInt(URLParams.getAll('n')[0], 10))) {
+                    document.write('Please wait, the page is being loaded...'); //If no n param exists
+                    setTimeout(() => {
+                        window.location.href = window.location.href.split('?')[0] + '?n=' + (randInt + 1);
+                    }, 50);
+                } else if(URLParams.get('n') > catNum || URLParams.get('n') < 1) { //Funny lil easter egg if someone tempers with the n param :)
+                    alert('YOU FOUND AN EASTER EGG! WELL DONE! As a reward, you may have my credit card number: 1234 5678 9101 1121');
+                    alert('No I was joking lmao');
+                    alert('Did you actually believe that??');
+                    alert('lol');
+                    alert('Anyways, well done for finding this.');
+                    alert('Byeee, see ya next time! And have fun playing pacman ;)');
+                    window.location.href = 'https://www.google.com/logos/2010/pacman10-i.html'; //PACMAAAAAN
+                } else { //Definition of categories
+                    var a1 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': '(From The Vault)',
+                        'medium': 'Albums that are also songs',
+                        'hard': 'Songs about cheating',
+                        'very hard': 'Albums with a greyscale cover',
+                        'h1': 'Locked in lower case inside there',
+                        'h2': 'I\'ll show you every version of yourself',
+                        'h3': 'My husband, I want to kill him',
+                        'h4': 'Did I paint your bluest skies the darkest one?'
+                    }
+
+                    var a2 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': 'Debut songs',
+                        'medium': 'Songs that are more than 5 minutes long',
+                        'hard': 'Songs with an official acoustic version',
+                        'very hard': 'Songs that mention New York in the lyrics',
+                        'h1': 'From sprinklers splashes',
+                        'h2': 'I see the great escape, Daisy May',
+                        'h3': 'He\'s the reason for the teardrops on there',
+                        'h4': 'She\'s so it, when she\'s in LA'
+                    }
+
+                    var a3 = {
+                        'diff': 'medium',
+                        'add': '',
+                        'easy': 'Non-album songs',
+                        'medium': '4-letters long song titles',
+                        'hard': 'Shortest songs in duration',
+                        'very hard': 'Songs solely written by Taylor',
+                        'h1': 'Did all the credit then got graded on a curve',
+                        'h2': 'Just twin fire signs, blue eyes',
+                        'h3': 'Lilac skirt, the one that fits me like skin',
+                        'h4': '</i>All of Speak Now could fit into this category<i>'
+                    }
+
+                    var a4 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': 'Taylor\'s track 5s',
+                        'medium': 'Songs about smallness',
+                        'hard': 'Genuine thank you songs',
+                        'very hard': 'All lower case titles',
+                        'h1': 'And you said you\'d come and get me but you were twenty',
+                        'h2': 'They aren\'t gonna change this // <b>We</b> gotta do it ourselves',
+                        'h3': 'My flight was awful, it\'s for asking',
+                        'h4': 'I keep these longings locked inside a vault'
+                    }
+
+                    var a5 = {
+                        'diff': 'easy',
+                        'add': 'SPECIAL EDITION: Featurings',
+                        'easy': 'Songs featuring Ed Sheeran',
+                        'medium': '1989 World Tour featurings',
+                        'hard': 'Songs with featurings in The Sister Albums',
+                        'very hard': 'Songs featuring rappers',
+                        'h1': 'After the storm, something was born on the Fourth of July',
+                        'h2': 'My name is Taylor, and I was born in that year.',
+                        'h3': 'Your ex-friend\'s one met someone at a club and he kissed her',
+                        'h4': '</i>T-Swizzle is one of them<i>'
+                    }
+
+                    var a6 = {
+                        'diff': 'easy',
+                        'add': '',
+                        'easy': 'Songs with numbers in the title',
+                        'medium': 'Songs with featurings',
+                        'hard': 'Religiously titled songs',
+                        'very hard': 'Bonus tracks',
+                        'h1': '... Let\'s go b****',
+                        'h2': 'With those on the ground, tell me all that you\'d learn',
+                        'h3': 'Sacred new beginnings, that became it',
+                        'h4': 'As the crowd was chanting that'
+                    }
+
+                    var a7 = {
+                        'diff': 'easy',
+                        'add': '',
+                        'easy': 'Unreleased songs',
+                        'medium': 'Longest song titles',
+                        'hard': 'Songs from Speak Now',
+                        'very hard': 'Songs that are names',
+                        'h1': 'I keep these longings locked',
+                        'h2': 'So London, so London',
+                        'h3': 'You need to hear me out, and they said it',
+                        'h4': 'I\'ve come too far to watch some dropping sleaze'
+                    }
+
+                    var a8 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': 'Songs mentioning places in the title',
+                        'medium': 'Lead singles',
+                        'hard': 'Songs about other women',
+                        'very hard': 'Songs mentioning July',
+                        'h1': 'Don\'t pretend it\'s such a mystery, think about where you first met me',
+                        'h2': 'Know exactly where it brings, but I',
+                        'h3': 'A greater one wouldn\'t beg',
+                        'h4': '</i>When did they pick up that pebble?<i>'
+                    }
+
+                    var a9 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': 'Songs with an ellipsis (...) in their title',
+                        'medium': 'Longest album names',
+                        'hard': 'Songs featuring a tour opener',
+                        'very hard': 'Albums with plants on the cover',
+                        'h1': 'When they show to the pictures (3x)',
+                        'h2': 'Got a list of ex-lovers',
+                        'h3': 'Time, mystical time, cutting me closed, then healing me fine',
+                        'h4': 'We can create a memory garden'
+                    }
+
+                    var a10 = {
+                        'diff': 'very easy',
+                        'add': '',
+                        'easy': 'Other artist songs crediting Taylor',
+                        'medium': 'Albums',
+                        'hard': 'Most streamed songs on Spotify',
+                        'very hard': 'Last songs of albums',
+                        'h1': '</i>Wait... Taylor did not sing all of those songs!<i>',
+                        'h2': 'Photo one on the counter, your cheeks were turning red',
+                        'h3': 'What do you say when tears are running down your face?',
+                        'h4': 'Is It Over Now?'
+                    }
+
+                    var a11 = {
+                        'diff': 'hard',
+                        'add': '',
+                        'easy': 'Songs with an over 5-word long title',
+                        'medium': 'Albums of which there exists a Taylor\'s Version',
+                        'hard': 'Songs mentioning a night time',
+                        'very hard': 'Songs crediting "William Bowery" as a writer',
+                        'h1': 'The story short, it was a bad time',
+                        'h2': 'I\'ll show you every kind of yourself tonight',
+                        'h3': 'It gave me no compasses, it gave me no signs',
+                        'h4': '</i>Not from Lover... but <i>with</i> her lover<i>'
+                    }
+                    //\\
+
+                    //Definition of answer groups
+                    var aOne = ['"Slut!"', 'Forever Winter', 'Suburban Legends', 'You\'re Losing Me', 'Red', 'Lover', 'Fearless', 'Speak Now', 'no body, no crime', 'ivy', 'Girl At Home', 'High Infidelity', 'reputation', 'folklore', 'folklore: the long pond studio sessions', 'THE TORTURED POETS DEPARTMENT: THE ANTHOLOGY'];
+                    var aTwo = ['Stay Beautiful', 'The Outside', 'Should\'ve Said No', 'Picture To Burn', 'All Too Well', 'Dear John', 'Innocent', 'happiness', 'Fortnight', 'Lavender Haze', 'Anti-Hero', 'State Of Grace', 'Holy Ground', 'hoax', 'Come Back... Be Here', 'False God'];
+                    var aThree = ['Macavity', 'Highway don\'t care', 'Birch', 'Crazier', 'Babe', 'loml', 'hoax', '"Slut!"', 'Glitch', 'It\'s nice to have a friend', 'I look in people\'s windows', 'Now that we don\'t talk', 'Speak Now', 'This Love', 'The Manuscript', 'Our Song'];
+                    var aFour = ['All You Had To Do Was Stay', 'White Horse', 'So Long, London', 'Dear John', 'The Smallest Man Who Ever Lived', 'Who\'s Afraid of Little Old Me?', 'Never Grow Up', 'Robin', 'All Of The Girls You Loved Before', 'thanK you aIMee', 'The Best Day', 'Long Live', 'us.', 'it\'s time to go', 'loml', 'imgonnagetyouback'];
+                    var aFive = ['Run', 'Everything Has Changed', 'The Joker and the Queen', 'Thinking Out Loud', 'Brave', 'Summer of \'69', 'Smelly Cat', 'You Oughta Know', 'exile', 'evermore', 'coney island', 'no body, no crime', 'Thug Story', 'Both Of Us', 'Karma', 'Bad Blood'];
+                    var aSix = ['22', 'the 1', 'seven', 'All Too Well (10 Minute Version)', 'Snow On The Beach', 'Breathe', 'That\'s When', 'Castles Crumbling', 'False God', 'Mary\'s Song (Oh My My My)', 'Holy Ground', 'epiphany', 'the lakes', 'it\'s time to go', 'right where you left me', 'Sweeter Than Fiction'];
+                    var aSeven = ['Drama Queen', 'Dark Blue Tennessee', 'Family', 'Permanent Marker', 'Miss Americana & The Heartbreak Prince', 'We Are Never Ever Getting Back Together', 'This Is Why We Can\'t Have Nice Things', 'Christmas Must Be Something More', 'Speak Now', 'Sparks Fly', 'Ours', 'Timeless', 'Robin', 'ivy', 'dorothea', 'Ronan'];
+                    var aEight = ['So Long, London', 'Paris', 'Welcome To New York', 'Florida!!!', 'Shake It Off', 'Tim McGraw', 'We Are Never Ever Getting Back Together', 'Look What You Made Me Do', 'Marjorie', 'Soon you\'ll get better', 'Bad Blood', 'thanK you aIMee', 'Last Kiss', 'evermore', 'Sweet Nothing', 'End Game'];
+                    var aNine = ['...Ready For It?', 'So It Goes...', 'Question...?', 'Come Back... Be Here', 'THE TORTURED POETS DEPARTMENT: THE ANTHOLOGY', 'folklore: the long pond studio sessions (from the Disney+ special) [deluxe edition]', 'reputation Stadium Tour Surprise Song Playlist', 'Live From Clear Channel Stripped 2008', 'no body, no crime', 'us.', 'Lover (Remix)', 'Nothing New', 'folklore', 'evermore', 'Taylor Swift', 'Red (Taylor\'s Version)'];
+                    var aTen = ['This Is What You Came For', 'Deja Vu', 'You\'ll Always Find Your Way Back Home', 'Best Days Of Your Life', 'Midnights', 'Taylor Swift', '1989', 'Speak Now', 'Blank Space', 'Cruel Summer', 'I Don\'t Wanna Live Forever', 'Anti-Hero', 'Timeless', 'New Year\'s Day', 'Clara Bow', 'Bye Bye Baby'];
+                    var aEleven = ['This Is Why We Can\'t Have Nice Things', 'We Are Never Ever Getting Back Together', 'The Smallest Man Who Ever Lived', 'Who\'s Afraid Of Little Old Me', 'Red', 'Speak Now', 'Fearless', '1989', 'Enchanted', 'Breathe', 'Mine', 'I Wish You Would', 'champagne problems', 'exile', 'evermore', 'Sweet Nothing'];
+                    //\\
+
+                    var num = parseInt(URLParams.get('n')); //Grid number
+                    var categories, answersText;
+
+                    switch(num) { //Lil switch statement to affect the categories and answers to the grid number
+                        case 1:
+                            categories = a1;
+                            answersText = aOne;
+                            break;
+                        case 2:
+                            categories = a2;
+                            answersText = aTwo;
+                            break;
+                        case 3:
+                            categories = a3;
+                            answersText = aThree;
+                            break;
+                        case 4:
+                            categories = a4;
+                            answersText = aFour;
+                            break;
+                        case 5:
+                            categories = a5;
+                            answersText = aFive;
+                            break;
+                        case 6:
+                            categories = a6;
+                            answersText = aSix;
+                            break;
+                        case 7:
+                            categories = a7;
+                            answersText = aSeven;
+                            break;
+                        case 8:
+                            categories = a8;
+                            answersText = aEight;
+                            break;
+                        case 9:
+                            categories = a9;
+                            answersText = aNine;
+                            break;
+                        case 10:
+                            categories = a10;
+                            answersText = aTen;
+                            break;
+                        case 11:
+                            categories = a11;
+                            answersText = aEleven;
+                            break;
+                        //\\
+                    }
+
+                    var answers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+                    var answerSpell = [null, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11]; //\\
+                    //All our answers into one array ^
+                    answers = answers.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value); //Let's randomize all of that
+                    var selectables = answers; //Which tiles remain selectable
+                    var i, j, k, l, m, n, o, p, q, r, s, t; //Lol... incrementation vars... I think I have too many loops lmao
+                    var col; //The color (at least one of the vars lmao)
+
+                    for(i = 0; i < 16; i++) {
+                        $('#' + answers[i]).html('<p class="answer">' + answersText[i] + '</p>'); //Ok now let's display the text in the tiles
+                    }
+
+                    for (q = 1; q < answerSpell.length; q++) {
+                        $('#levelSelection').append(`<option id="o${q}" value="${q}">${q} (${answerSpell[q]['diff']})</option>`);
+                    }
+
+                    function htmlCatText(difficulty, difficultyBis = difficulty, difficultyTer = difficultyBis) { //A useless lil func :) for if you find a category
+                        return '<span id="' + difficulty + 'Span">You have found: <strong>' + categories[difficultyBis] + '</strong>. This was the <strong>' + difficultyTer + '</strong> category.</span><br>';
+                    }
+
+                    $('#easy').html(htmlCatText('easy'));
+                    $('#medium').html(htmlCatText('medium'));
+                    $('#hard').html(htmlCatText('hard'));
+                    $('#very_hard').html(htmlCatText('very_hard', 'very hard'));
+
+                    switch(categories['diff']) { //And now it's the right one (following the difficulty)
+                        case 'very easy':
+                            col = 'var(--blue)';
+                            break;
+                        case 'easy':
+                            col = 'var(--green)';
+                            break;
+                        case 'medium':
+                            col = 'var(--orange)';
+                            break;
+                        case 'hard':
+                            col = 'var(--red)';
+                            break;
+                        case 'very hard':
+                            col = 'var(--purple)';
+                            break;
+                        default:
+                            col = 'var(--black)';
+                    }
+
+                    //Short intro sentence and stuff
+                    $('#game').html(`You are playing grid number <b>${num}</b>. Its difficulty is : <b style="text-decoration: underline 2px solid ` + col + `">${categories['diff']}</b>.<br><b>${categories['add']}</b>`);
+                    $('h1').css('text-decoration', 'underline 1px wavy ' + col);
+                    $('#o' + num).attr('selected', 'selected').attr('disabled', 'disabled');
+                    $('#submitButton').addClass('unclick');
+
+                /***********************************
+                * Selection script
+                * 
+                * 'selected' is an array of numbers as
+                * strings which are the IDs of the
+                * selected tiles.
+                * 
+                * 'repeat' boolean is to prevent a value
+                * from being spliced and never re-
+                * entered again.
+                ************************************/
+                    var selected = []; //The array of currently selected tile numbers
+                    var ID, active;
+                    var cells = $('.cell');
+                    var repeat = false;
+
+                    $('.cell').on('click', (elem) => {
+                        repeat = false;
+                        ID = elem.currentTarget.id;
+                        active = $('.active');
+                        if(selected.includes(ID)) {
+                            for(k = 0; k < selected.length; k++) {
+                                if(selected[k] == ID) {
+                                    selected.splice(k, 1); //If the array already includes the selected tile (ie it's already selected), then remove it
+                                    repeat = true;
+                                }
+                            }
+                        }
+
+                        try{ //Weird way to add a little style but yeah...
+                            if(active.length < 4 && !$('#' + ID)[0].attributes.style.value) $('#' + ID).toggleClass('active'); //Style if selected... or deselected
+                        } catch {
+                            if(active.length < 4 && !$('#' + ID)[0].attributes[2]) $('#' + ID).toggleClass('active'); //Idem
+                        }
+                        if(active.length == 4 && ~$('#' + ID)[0].className.indexOf('active')) {
+                            $('#' + ID).removeClass('active');
+                        } else if(active.length == 4) {
+                            $('#text').text('You can only select 4 tiles!').trigger('notif');
+                        }
+                        if(selected.length < 4 && !selected.includes(ID) && !repeat && selectables.includes(parseInt(ID))) {
+                            selected.push(ID); //Add tile number to 'selected' array
+                        }
+                        if(selected.length === 4) {
+                            $('#submitButton').removeClass('unclick');
+                        } else {
+                            $('#submitButton').addClass('unclick');
+                        }
+                    });
+
+                /***********************************
+                * Submission script
+                * 
+                * 'guesses' contains the guesses in
+                * array form.
+                * 
+                * 'selectables' is an array of tiles 
+                * that aren't yet found, hence they
+                * are still selectable.
+                ************************************/
+                    var [guesses, ansList] = [[], []];
+                    var answerNum = 1;
+                    var [ans, diffAns, color, stringifyAnswers] = ['', '', '', ''];
+                    var pattern, t, rightAns;
+                    var arrTemp1, arrTemp2, arrTemp3, arrTemp4; //Just to arrange the values in 4x4 ordered lists
+                    
+                    arrTemp1 = answers.slice(0, 4).sort((a, b) => a - b); //Ex. 4,9,11,15||1,2,12,13||7,10,14,16||3,5,6,8
+                    arrTemp2 = answers.slice(4, 8).sort((a, b) => a - b);
+                    arrTemp3 = answers.slice(8, 12).sort((a, b) => a - b);
+                    arrTemp4 = answers.slice(12).sort((a, b) => a - b);
+                    answers = arrTemp1.concat(arrTemp2, arrTemp3, arrTemp4);
+                    
+                    for(l = 0; l < 16; l++) {
+                        stringifyAnswers += answers[l];
+                        stringifyAnswers += ',';
+                        if((l + 1) % 4 == 0 && l != 15) {
+                            stringifyAnswers += '||';
+                        }
+                    }
+
+                    $('#submitButton').on('click', (elem) => {
+                        t = [];
+                        rightAns = 0;
+                        selected = selected.sort((a, b) => a - b);
+                        if(selected.length !== 4) {
+                            $('#text').text('Please select four tiles!').trigger('notif'); //Pfffff someone didn't select enough tiles
+                        } else {
+                            guesses.push(selected.slice(0)); //Let's register the guess
+                            diffAns = stringifyAnswers.split('||');
+                            
+                            for(e of diffAns) { //This is to find how many right tiles are found per category
+                                for(el of selected) {
+                                    pattern = new RegExp('(?:^|[^0-9])' + el + ',');
+                                    if (pattern.test(e)) {
+                                        rightAns++;
+                                    }
+                                }
+                                t.push(rightAns);
+                                rightAns = 0;
+                            }
+
+                            if(t.includes(3)) { //If three are found, then it's a one away situation
+                                $('#text').text('One away...').trigger('notif');
+                                for(r = 0; r < 4; r++) { //Lil cute animation
+                                    $('#' + guesses[guesses.length - 1][r]).css('animation', 'wrongGuess .5s');
+                                }
+
+                                r = 0; //Do I need this line? idk. Better be sure ig
+                                setTimeout(() => {
+                                    for(r = 0; r < 4; r++) {
+                                        $('#' + guesses[guesses.length - 1][r]).css('animation', '');
+                                    }
+                                }, 550);
+
+                            } else if(t.includes(4)) {
+                                $(':root').css('cursor', 'progress');
+                                setTimeout(() => $('body').css('cursor', 'default'), 500);
+                                $('#text').text('Well done!').trigger('notif'); //Yay! You found a category!
+
+                                r = 0;
+                                for(r = 0; r < 4; r++) { //Lil cute animation
+                                    $('#' + guesses[guesses.length - 1][r]).css('animation', 'rightGuess 1s ease-in-out');
+                                }
+                                r = 0; //Do I need this line? idk. Better be sure ig
+                                setTimeout(() => {
+                                    for(r = 0; r < 4; r++) {
+                                        $('#' + guesses[guesses.length - 1][r]).css('animation', '');
+                                    }
+                                    $('#submitButton').addClass('unclick');
+                                }, 1100);
+                                j = -1;
+                                diffAns.forEach(() => {
+                                    j++;
+                                    if(!~diffAns[j].indexOf(selected.toString())) {
+                                        return;
+                                    }
+                                    switch(j) { //What difficulty was this category?
+                                        case 0:
+                                            ans = 'easy';
+                                            color = 'green';
+                                            break;
+                                        case 1:
+                                            ans = 'medium';
+                                            color = 'orange';
+                                            break;
+                                        case 2:
+                                            ans = 'hard';
+                                            color = 'red';
+                                            break;
+                                        case 3:
+                                            ans = 'very_hard';
+                                            color = 'purple';
+                                            break;
+                                        default:
+                                            color = 'black';
+                                    }
+                                });
+
+                                for(m = 0; m < selected.length; m++) {
+                                    $('#' + selected[m]).css('background-color', 'var(--' + color + ')').hide().fadeIn(1000).removeClass('active').css('cursor', 'default'); //Coloration of tiles
+                                    selectables.splice(selectables.indexOf(parseInt(selected[m])), 1); //Remove tiles from 'selectables' since they can't be selected anymore
+                                    answersText.splice(selectables.indexOf(parseInt(selected[m])), 1); //Idem, for 'answersText'
+                                }
+
+                                answerNum++;
+                                $('#' + ans).fadeIn(1500); //Tell what you've found could be useful
+                                selected = [];
+
+                                if(selectables.length == 0) {
+                                    setTimeout(() => {
+                                        alert('Good job! You finished this Taynnections grid! Please admire your work:');
+                                        $('#submitButton').addClass('unclick');
+                                    }, 2000);
+                                }
+
+                            } else { //Now what if it wasn't the right answer?
+                                $('#text').text('Wrong guess!').trigger('notif');
+                                for(r = 0; r < 4; r++) { //Lil cute animation (again)
+                                    $('#' + guesses[guesses.length - 1][r]).css('animation', 'wrongGuess .5s');
+                                }
+
+                                r = 0;
+                                setTimeout(() => {
+                                    for(r = 0; r < 4; r++) {
+                                        $('#' + guesses[guesses.length - 1][r]).css('animation', '');
+                                    }
+                                }, 550);
+                            }
+                        }
+                    });
+
+                /***********************************
+                * Deselection script
+                ************************************/
+                    $('#deselectButton').on('click', (elem) => { //Simple and efficient
+                        for(n = 0; n < selected.length; n++) {
+                            $('#' + selected[n]).removeClass('active'); //Remove 'active' class
+                        }
+                        selected = []; //Empty 'selected' array (cos nothing's selected anymore, duh)
+                        $('#submitButton').addClass('unclick');
+                    });
+
+                /***********************************
+                * Notification script
+                ************************************/
+					var c;
+
+                    $('#notif').on('notif', () => {
+						$('#banner').css('background-color', '#222'); //Reinitialize background-color after possible alteration
+                        $('#notif').fadeIn(1000).fadeOut(1000);
+                    });
+
+                    $('#notif').on('hint', (ev, hint) => { //BUT notif !== hint
+                        switch(parseInt(hint)) { //Let's find the difficulty (again)
+                            case 1:
+                                c = 'var(--green)';
+                                break;
+                            case 2:
+                                c = 'var(--orange)';
+                                break;
+                            case 3:
+                                c = 'var(--red)';
+                                break;
+                            case 4:
+                                c = 'var(--purple)';
+                                break;
+                            case NaN:
+                            default:
+                                c = '#222';
+                        }
+                        $('#banner').css('background-color', c);
+                        $('#notif').fadeIn(2000).fadeOut(2000); //Hints are displayed for longer (and have another background color (mostly))
+                    });
+
+                /***********************************
+                * Restart script
+                ************************************/
+                    $('#refreshButton').on('click', () => window.location.reload()); //Simple and efficient
+
+                /***********************************
+                * Grid selection script
+                ************************************/
+                    $('#levelSelection').change(elem => { //Idem, just change the param in url
+                        window.location.href = window.location.href.split('?')[0] + '?n=' + elem.target.value;
+                    });
+
+                /***********************************
+                * Grid selection script (2)
+                ************************************/
+                    $('#prevGridButton').on('click', () => {
+                        if(num > 1) {
+                            window.location.href = window.location.href.split('?')[0] + '?n=' + (num - 1); //Previous grid
+                        } else if(num === 1) {
+                            alert('You have reached the first grid. The page is going to redirect you to grid number ' + catNum + '.'); //Oh, limit reached
+                            window.location.href = window.location.href.split('?')[0] + '?n=' + catNum;
+                        } else {
+                            //This should not happen, but it exists as a security
+                            document.write('Error');
+                            setTimeout(() => window.location.href = 'https://mytestsite.ch/', 500);
+                        }
+                    });
+
+                    $('#nextGridButton').on('click', () => {
+                        if(num < catNum) {
+                            window.location.href = window.location.href.split('?')[0] + '?n=' + (num + 1); //Next grid
+                        } else if(num === catNum) {
+                            alert('You have reached the last grid. The page is going to redirect you to grid number 1.'); //Oh, limit reached (again)
+							window.location.href = window.location.href.split('?')[0] + '?n=1';
+                        } else {
+                            //This should not happen, but it exists as a security (again)
+                            document.write('Error');
+                            setTimeout(() => window.location.href = 'https://mytestsite.ch/', 500);
+                        }
+                    });
+
+                /***********************************
+                * Hints script
+                ************************************/
+                    var hintNum = 1; //Number of hints asked... starts with 1 cos WHY NOT
+                    var maxHintNum, askedHint;
+                    var possibleHints = [];
+                    var thisGrid = answerSpell[parseInt((window.location.href.split('?n=')[1]))]; //This specific grid info
+                    var viewPort = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0); //Viewport info
+                    
+                    switch(thisGrid['diff']) { //Do not use too many hints please
+                        case 'very easy':
+                            maxHintNum = 0;
+                            break;
+                        case 'easy':
+                        case 'medium':
+                            maxHintNum = 1;
+                            break;
+                        case 'hard':
+                            maxHintNum = 2;
+                            break;
+                        case 'very hard':
+                            maxHintNum = 3;
+                    }
+
+                    if(maxHintNum === 0) $('#hintButton').addClass('unclick'); //Don't even ask for any if you can't, that would be useless
+                    
+                    $('#hintButton').on('click', () => {
+                        if (maxHintNum !== 0) {
+                            $('#hintButton').fadeOut(500); //Hide 'I need a hint' button if little colored buttons appear 
+                            setTimeout(() => {
+                                for(s = 0; s <= 4; s++) {
+                                    $('#hintButton' + s).fadeIn(500).css('transform', 'translateX(2px)'); //Little correction because it stresses me out
+                                    if (viewPort < 750) {
+                                        $('hr').css({'margin-right': '0', 'max-width': '80%'}); //Decrease the hr so there is no interference
+                                    }
+                                }
+                            }, 500);
+                            setTimeout(() => $('#hintOn').fadeIn(500), 500); //And hop let's display the hide button
+                        } else {
+                            $('#text').text('You cannot ask for any hints in this level.').trigger('notif');
+                        }
+                    });
+    
+                    $('#hintOn').on('click', () => { //Now on 'hide' button click
+                        $('#hintOn').fadeOut(500); //Hide 'Hide hints' button if little colored buttons are hidden
+                        $('input[id^=hintButton]').fadeOut(500); //... these are the ones I mean
+                        setTimeout(() => $('#hintButton').fadeIn(500), 500); //Little timeout so it doesn't move around too much
+                        $('hr').css({'max-width': 'initial', 'margin-right': 'initial'}); //Put the hr back As It Was (Harry Styles)
+                    });
+
+                    $('input[id^=hintButton]').on('click', (elem) => { //Now on hint request
+                        askedHint = elem.currentTarget.value;
+                        if(hintNum <= maxHintNum && !possibleHints.includes(askedHint)) { //We only want a certain number of hints
+                            $('#text').html('<i>' + thisGrid['h' + askedHint] + '</i>').trigger('hint', askedHint); //Since the hints often is a lyric, it's in italic
+                            hintNum++;
+                            possibleHints.push(askedHint); //'possibleHints' are the hints that already have been asked for
+                        } else if(possibleHints.includes(askedHint)) { //It is also accepted if user forgot the hint
+                            $('#text').html('<i>' + thisGrid['h' + askedHint] + '</i>').trigger('hint', askedHint);
+                        } else {
+                            $('#text').text('You have already asked for the maximum number of hints for this grid!').trigger('notif'); //Nuh-uh
+                        }
+                    });
+
+                /***********************************
+                * Dark mode script
+                ************************************/
+                    $('#toggleDarkMode').on('click', () => {
+                        $('#toggleDarkMode').toggleClass('darkModeOn').toggleClass('darkModeOff');
+                        if($('#toggleDarkMode')[0].className === 'darkModeOn') {
+                            $('head').append('<link rel="stylesheet" href="darkMode.css">');
+					        document.cookie = 'darkMode=true';
+                        } else if($('#toggleDarkMode')[0].className === 'darkModeOff') {
+                            $('link[href^=darkMode]').remove();
+					        document.cookie = 'darkMode=false';
+                        } else {
+                            console.error('Dark Mode error');
+                        }
+                    });
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1><i>Taynnections</i></h1>
+            <h2>A Taylor Swift <i>Connections</i> game by Matteo B.</h2>
+            <div class="container" id="notif">
+                <div class="notif" id="banner">
+                    <p id="text"></p>
+                </div>
+            </div>
+        </header>
+        <main>
+            <article>
+                <div id="darkMode">
+                    <div id="toggleDarkMode" class="darkModeOff"></div>
+                </div>
+                <p id="game"></p>
+                <label for="levelSelection" id="labelSelection">Select another grid:</label>
+                <select name="levels" id="levelSelection">
+                </select>
+            </article>
+            <div class="container" id="grid">
+                <div class="cell" id="1"></div>
+                <div class="cell" id="2"></div>
+                <div class="cell" id="3"></div>
+                <div class="cell" id="4"></div>
+                <div class="cell" id="5"></div>
+                <div class="cell" id="6"></div>
+                <div class="cell" id="7"></div>
+                <div class="cell" id="8"></div>
+                <div class="cell" id="9"></div>
+                <div class="cell" id="10"></div>
+                <div class="cell" id="11"></div>
+                <div class="cell" id="12"></div>
+                <div class="cell" id="13"></div>
+                <div class="cell" id="14"></div>
+                <div class="cell" id="15"></div>
+                <div class="cell" id="16"></div>
+            </div>
+            <div class="container" id="buttons">
+                <div class="button" id="submit">
+                    <input type="button" value="Submit" id="submitButton">
+                </div>
+                <div class="button" id="deselect">
+                    <input type="button" value="Deselect all" id="deselectButton">
+                </div>
+                <div class="button" id="refresh">
+                    <input type="button" value="Restart" id="refreshButton">
+                </div>
+            </div>
+		  	<div class="container" id="hints">
+			  	<div class="button" id="hint">
+				    <button id="hintButton"><span>I need a hint</span></button>
+                    <div id="hintContainer">
+                        <input type="button" value="1" id="hintButton1">
+                        <input type="button" value="2" id="hintButton2">
+                        <input type="button" value="3" id="hintButton3">
+                        <input type="button" value="4" id="hintButton4">
+                    </div>
+                    <button id="hintOn">Hide hints</button>
+			    </div>
+		    </div>
+            <hr>
+            <div class="container" id="grids">
+                <div class="button" id="prev">
+                    <input type="button" value="< Previous grid" id="prevGridButton">
+                </div>
+                <div class="button" id="next">
+                    <input type="button" value="Next grid >" id="nextGridButton">
+                </div>
+            </div>
+            <div class="container" id="categories">
+                <div id="easyDiv"><p id="easy"></p></div>
+                <div id="mediumDiv"><p id="medium"></p></div>
+                <div id="hardDiv"><p id="hard"></p></div>
+                <div id="very_hardDiv"><p id="very_hard"></p></div>
+            </div>
+            <div class="container" id="rules">
+                <p>You are playing <i>Taynnections</i>! Yay! Here are a few tips about how this game works.</p>
+                <p>The aim of the game is to put the sixteen tiles into four distinct categories by clicking on them. Categories may concern: album, duration, cover, lyrics, variants, music video, genre, writer(s), title, track number, and so on, and so forth.</p>
+                <p>There are four colors of categories: <span class="green">green</span>, <span class="orange">orange</span>, <span class="red">red</span>, and <span class="purple">purple</span>, ranging from <span class="green">easy</span> to <span class="purple">very hard</span>.</p>
+                <p>Each grid has a certain level of difficulty, spanning from <span class="blue">very easy</span> to <span class="purple">very hard</span>.</p>
+                <p>When you are one tile away from finding the right answer, then the game informs you about it.</p>
+			    <p><b>Hints:</b> You may ask for hints. However, hints are not available for <span class="blue">very easy</span> grids. Additionally, the maximum number of hint requests is 1, 2, and 3 for <span class="green">easy</span> and <span class="orange">medium</span>, <span class="red">hard</span>, and <span class="purple">very hard</span> grids, respectively. Hints may have various aspects: lyrics, in italic and slightly modified, or crossword-like sentences. If a lyric does not have a specific word, then this word is the hint. For example, with <i>Fever dream high in the night</i>, the hint is the word <i>quiet</i>, since it is missing from the lyric.</p>
+                <p id="noHints"><b>Please note that hints may not be available for your device since it is too small. Do consider using a bigger screen.</b></p>
+                <p><b>Additional info:</b> If multiple variants of a song exist but no further indication is given, then consider it to be irrelevant or the default version (i.e. Taylor's Version, for example). Tip: If a further indication is given, then it may have a certain importance to the category.</p>
+                <p>The webmaster may be <a href="mailto:webmaster@mytestsite.ch">contacted</a> for any review, correction, question, grid proposal or complaint about the game.</p>
+                <p>And, last but not least, <b>have fun playing <i>Taynnections</i></b>!</p>
+                <p id="disclaimer"><small><small>Note : This game is based off of <i>Connections</i>, a New York Times word game. This page is not affiliated with The New York Times in any way. This is an open-sourced project and the code can be accessed <a href="https://github.com/Matt37512/Taynnections">here</a>.</small></small></p>
+            </div>
+        </main>
+        <footer>
+            <div class="footer" id="footer">
+                <p id="footerText">&copy;&nbsp;MB&thinsp;2025</p>
+            </div>
+        </footer>
+    </body>
 </html>
