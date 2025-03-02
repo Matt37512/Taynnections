@@ -1,5 +1,5 @@
+Options +FollowSymLinks
 ##REDIRECT
-RewriteEngine On
 RedirectMatch 301 /connections.html/?(.*) /$1
 
 ##HOME PAGE DEF
