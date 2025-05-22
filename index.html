@@ -12,10 +12,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-            if(document.cookie && document.cookie.split('=')[1] !== 'false') {
-				$('head').append('<link rel="stylesheet" href="darkMode.css">');
-				$('#toggleDarkMode').toggleClass('darkModeOn').toggleClass('darkModeOff');
-            }
+                if(document.cookie && document.cookie.split('=')[1] !== 'false') {
+                    $('head').append('<link rel="stylesheet" href="darkMode.css">');
+                    $('#toggleDarkMode').toggleClass('darkModeOn').toggleClass('darkModeOff');
+                }
             /***********************************
             * Init script
             * 
@@ -292,7 +292,7 @@
                         $('#' + answers[i]).html('<p class="answer">' + answersText[i] + '</p>'); //Ok now let's display the text in the tiles
                     }
 
-                    for (q = 1; q < answerSpell.length; q++) {
+                    for(q = 1; q < answerSpell.length; q++) {
                         $('#levelSelection').append(`<option id="o${q}" value="${q}">${q} (${answerSpell[q]['diff']})</option>`);
                     }
 
@@ -344,7 +344,6 @@
                 ************************************/
                     var selected = []; //The array of currently selected tile numbers
                     var ID, active;
-                    var cells = $('.cell');
                     var repeat = false;
 
                     $('.cell').on('click', (elem) => {
@@ -367,7 +366,7 @@
                         }
                         if(active.length == 4 && ~$('#' + ID)[0].className.indexOf('active')) {
                             $('#' + ID).removeClass('active');
-                        } else if(active.length == 4) {
+                        } else if(active.length == 4 && selectables.includes(parseInt(ID))) {
                             $('#text').text('You can only select 4 tiles!').trigger('notif');
                         }
                         if(selected.length < 4 && !selected.includes(ID) && !repeat && selectables.includes(parseInt(ID))) {
@@ -423,7 +422,7 @@
                             for(e of diffAns) { //This is to find how many right tiles are found per category
                                 for(el of selected) {
                                     pattern = new RegExp('(?:^|[^0-9])' + el + ',');
-                                    if (pattern.test(e)) {
+                                    if(pattern.test(e)) {
                                         rightAns++;
                                     }
                                 }
@@ -436,7 +435,11 @@
                                 for(r = 0; r < 4; r++) { //Lil cute animation
                                     $('#' + guesses[guesses.length - 1][r]).css('animation', 'wrongGuess .5s');
                                 }
-
+                                try {
+                                    navigator.vibrate(75);
+                                } catch {
+                                    console.log('Vibration not supported');
+                                }
                                 r = 0; //Do I need this line? idk. Better be sure ig
                                 setTimeout(() => {
                                     for(r = 0; r < 4; r++) {
@@ -509,6 +512,11 @@
                                 $('#text').text('Wrong guess!').trigger('notif');
                                 for(r = 0; r < 4; r++) { //Lil cute animation (again)
                                     $('#' + guesses[guesses.length - 1][r]).css('animation', 'wrongGuess .5s');
+                                }
+                                try {
+                                    window.navigator.vibrate(100);
+                                } catch {
+                                    {}
                                 }
 
                                 r = 0;
@@ -632,12 +640,12 @@
                     if(maxHintNum === 0) $('#hintButton').addClass('unclick'); //Don't even ask for any if you can't, that would be useless
                     
                     $('#hintButton').on('click', () => {
-                        if (maxHintNum !== 0) {
+                        if(maxHintNum !== 0) {
                             $('#hintButton').fadeOut(500); //Hide 'I need a hint' button if little colored buttons appear 
                             setTimeout(() => {
                                 for(s = 0; s <= 4; s++) {
                                     $('#hintButton' + s).fadeIn(500).css('transform', 'translateX(2px)'); //Little correction because it stresses me out
-                                    if (viewPort < 750) {
+                                    if(viewPort < 750) {
                                         $('hr').css({'margin-right': '0', 'max-width': '80%'}); //Decrease the hr so there is no interference
                                     }
                                 }
