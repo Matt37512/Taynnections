@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 ##REDIRECT
-RedirectMatch 301 /connections.html/?(.*) /$1
-RedirectMatch 301 /taynnections.html/?(.*) /$1
+RedirectMatch 301 /connections\.html/?(.*) /$1
+RedirectMatch 301 /taynnections\.html/?(.*) /$1
 
 ##HOME PAGE DEF
 DirectoryIndex index.html
